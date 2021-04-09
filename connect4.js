@@ -152,6 +152,8 @@ function handleClick(evt) {
   // }
 
   // if every cell in top row of board is full and no winner, it's a tie
+    // every(cell => cell) ---> this checks if every cell is occupied
+      // if it is, calls a tie 
   if (board[0].every(cell => cell)) {
     return setTimeout(function() {
       endGame("It's a tie!");
@@ -160,6 +162,8 @@ function handleClick(evt) {
 
   // switch players
   // TODO: switch currPlayer 1 <-> 2
+  // can also use ternary operator for one line
+    // currPlayer = currPlayer === 1 ? 2 : 1;
   if (currPlayer === 1) {
     currPlayer = 2;
   } else {
@@ -190,6 +194,9 @@ function checkForWin() {
 
     //   }
     // }
+
+    // every cell in cells is a (y, x) coordinate on the board
+      // every() checks if each cell is within bounds of board and if each match currPlayer
     return cells.every(
       ([y, x]) =>
         y >= 0 &&
