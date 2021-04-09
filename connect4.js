@@ -109,6 +109,7 @@ function placeInTable(y, x) {
 function endGame(msg) {
   // TODO: pop up alert message
   alert(msg);
+  location.reload();
 }
 
 /** handleClick: handle click of column top to play piece */
@@ -128,15 +129,16 @@ function handleClick(evt) {
   placeInTable(y, x);
   if (currPlayer === 1) {
     board[y][x] = 1;
-  }
-  else {
+  } else {
     board[y][x] = 2;
   }
 
 
   // check for win
   if (checkForWin()) {
-    return endGame(`Player ${currPlayer} won!`);
+    return setTimeout(function() {
+      endGame(`Player ${currPlayer} won!`);
+    }, 200); 
   }
 
   // check for tie
@@ -149,12 +151,18 @@ function handleClick(evt) {
   //   endGame("It's a tie!");
   // }
 
+  // if every cell in top row of board is full and no winner, it's a tie
+  if (board[0].every(cell => cell)) {
+    return setTimeout(function() {
+      endGame("It's a tie!");
+    }, 200); 
+  }
+
   // switch players
   // TODO: switch currPlayer 1 <-> 2
   if (currPlayer === 1) {
     currPlayer = 2;
-  }
-  else {
+  } else {
     currPlayer = 1;
   }
 }
